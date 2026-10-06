@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Nido · Palawan, Philippines</title>
+<style>
+  :root{
+    --teal:#0e8f84;
+    --teal-dark:#0a6e66;
+    --ink:#1c2b2a;
+    --muted:#5c6f6d;
+    --sand:#f6f2ea;
+    --white:#ffffff;
+    --radius:16px;
+    --shadow:0 10px 30px rgba(10,60,55,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:var(--white);line-height:1.6}
+  img{max-width:100%;display:block}
+
+  /* ---------- NAVBAR ---------- */
+  .navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);border-bottom:1px solid #ececec}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-weight:800;letter-spacing:2.5px;font-size:20px;color:var(--teal);text-decoration:none}
+  .nav-links{display:flex;gap:26px;list-style:none;align-items:center}
+  .nav-links a{text-decoration:none;color:#4a4a4a;font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--teal)}
+  .hamburger{display:none;background:none;border:none;font-size:26px;color:var(--teal);cursor:pointer}
+  @media(max-width:900px){
+    .nav-links{position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;
+      padding:20px;gap:14px;border-bottom:1px solid #eee;transform:translateY(-130%);transition:transform .3s}
+    .nav-links.open{transform:translateY(0)}
+    .hamburger{display:block}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+    position:relative;overflow:hidden;color:#fff;padding:120px 24px 0;
+    background:linear-gradient(to bottom,rgba(10,70,80,.45),rgba(20,60,70,.25) 40%,rgba(30,40,50,.55)),
+    url("images/hero-sunset.jpg") center/cover no-repeat;}
+  .hero-kicker{letter-spacing:4px;font-size:13px;text-transform:uppercase;color:#ffe9c4;z-index:2}
+  .hero h1{font-size:clamp(52px,9vw,110px);font-weight:800;letter-spacing:1px;line-height:1.05;margin:10px 0 14px;z-index:2;
+    text-shadow:0 4px 24px rgba(0,0,0,.45)}
+  .hero p{max-width:560px;font-size:clamp(16px,2vw,20px);color:#fff8ee;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+  .hero-cta{z-index:2;margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-block;padding:13px 32px;border-radius:999px;text-decoration:none;font-weight:700;font-size:14px;
+    letter-spacing:1px;transition:transform .2s, box-shadow .2s}
+  .btn-solid{background:#fff;color:var(--teal-dark)}
+  .btn-line{border:2px solid #fff;color:#fff}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.25)}
+
+  /* ---------- STATS BAR ---------- */
+  .stats{background:#fff;display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:-1px auto 0;
+    border-left:1px solid #eee;border-right:1px solid #eee}
+  .stat{padding:38px 16px;text-align:center;border-right:1px solid #eee}
+  .stat:last-child{border-right:none}
+  .stat .num{font-size:30px;font-weight:800;color:var(--teal)}
+  .stat .lbl{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  @media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:none}
+    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid #eee}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:96px 24px}
+  .wrap{max-width:1200px;margin:0 auto}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 56px}
+  .sec-tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:700}
+  .sec-head h2{font-size:clamp(30px,4.5vw,44px);font-weight:800;margin:8px 0 12px}
+  .sec-head p{color:var(--muted)}
+  .alt{background:var(--sand)}
+
+  .grid{display:grid;gap:26px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .25s}
+  .card:hover{transform:translateY(-6px)}
+  .card .thumb{height:190px;overflow:hidden}
+  .card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .card:hover .thumb img{transform:scale(1.07)}
+  .card .body{padding:22px}
+  .card h3{font-size:18px;margin-bottom:8px}
+  .card p{font-size:14.5px;color:var(--muted)}
+
+  /* ---------- ABOUT ---------- */
+  .about-split{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  @media(max-width:900px){.about-split{grid-template-columns:1fr}}
+  .about-visual{height:420px;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .about-visual img{width:100%;height:100%;object-fit:cover}
+  .mission-box{background:var(--sand);border-left:4px solid var(--teal);padding:18px 22px;border-radius:0 12px 12px 0;margin-top:18px}
+  .mission-box h4{color:var(--teal-dark);margin-bottom:4px}
+  .mission-box p{font-size:14.5px;color:var(--muted)}
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{max-width:760px;margin:0 auto;position:relative;padding-left:30px}
+  .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--teal)}
+  .t-item{position:relative;margin-bottom:30px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+  .t-item::before{content:"";position:absolute;left:-30px;top:24px;width:14px;height:14px;border-radius:50%;
+    background:var(--teal);border:3px solid #fff;box-shadow:0 0 0 2px var(--teal)}
+  .t-item .year{font-weight:800;color:var(--teal)}
+  .t-item p{font-size:14.5px;color:var(--muted)}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px}
+  .g-item{border-radius:12px;overflow:hidden;position:relative;cursor:pointer}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+  .g-item:hover img{transform:scale(1.06)}
+  .g-item span{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;color:#fff;font-weight:700;font-size:14px;
+    background:linear-gradient(transparent,rgba(0,0,0,.55))}
+  .g-item.span2{grid-column:span 2}.g-item.tall{grid-row:span 2}
+  @media(max-width:700px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- GUIDE ---------- */
+  .guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:900px){.guide-grid{grid-template-columns:1fr}}
+  .guide-step{background:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .guide-step .icon{width:56px;height:56px;border-radius:14px;background:var(--teal);color:#fff;display:flex;
+    align-items:center;justify-content:center;font-size:26px;margin-bottom:16px}
+  .tips{margin-top:40px;background:var(--teal-dark);color:#eafaf8;border-radius:var(--radius);padding:34px}
+  .tips h3{margin-bottom:14px}
+  .tips ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 30px}
+  @media(max-width:700px){.tips ul{grid-template-columns:1fr}}
+  .tips li::before{content:"✓";margin-right:10px;font-weight:800;color:#ffd98a}
+
+  /* ---------- STAY / EVENTS ---------- */
+  .price{color:var(--teal);font-weight:800;font-size:18px;margin-top:10px}
+  .price span{font-size:13px;color:var(--muted);font-weight:500}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  @media(max-width:850px){.contact-grid{grid-template-columns:1fr}}
+  .info-block{background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);margin-bottom:18px}
+  .info-block h4{color:var(--teal-dark);margin-bottom:6px}
+  .info-block p{font-size:14.5px;color:var(--muted)}
+  .socials a{display:inline-block;margin:6px 8px 0 0;background:var(--sand);padding:8px 16px;border-radius:999px;
+    text-decoration:none;color:var(--teal-dark);font-size:13px;font-weight:700}
+  form{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+  form label{display:block;font-size:13px;font-weight:700;letter-spacing:.5px;margin:14px 0 6px;color:var(--ink)}
+  form input,form textarea,form select{width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:10px;
+    font-family:inherit;font-size:14.5px;transition:border-color .2s}
+  form input:focus,form textarea:focus,form select:focus{outline:none;border-color:var(--teal)}
+  form button{margin-top:20px;background:var(--teal);color:#fff;border:none;padding:14px 36px;border-radius:999px;
+    font-weight:700;font-size:14px;letter-spacing:1px;cursor:pointer;transition:background .2s}
+  form button:hover{background:var(--teal-dark)}
+
+  footer{background:#0b3f3c;color:#cfe8e5;text-align:center;padding:44px 24px}
+  footer .logo{color:#7fd6cd;margin-bottom:8px}
+  footer p{font-size:13.5px}
+  footer .credits{margin-top:14px;font-size:11.5px;opacity:.65}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="logo" href="#home">EL&nbsp;NIDO</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About the Place</a></li>
+      <li><a href="#attractions">Attractions</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#food">Food &amp; Culture</a></li>
+      <li><a href="#guide">Travel Guide</a></li>
+      <li><a href="#stay">Accommodations</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamBtn" aria-label="menu">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+  <div class="hero-kicker">Palawan · Philippines</div>
+  <h1>El Nido</h1>
+  <p>Towering limestone cliffs, secret lagoons, and water so clear it looks painted — the last frontier of paradise.</p>
+  <div class="hero-cta">
+    <a href="#attractions" class="btn btn-solid">Explore Attractions</a>
+    <a href="#guide" class="btn btn-line">Plan Your Trip</a>
+  </div>
+  <div class="stats" style="position:relative;z-index:3;width:100%;margin-top:90px">
+    <div class="stat"><div class="num">45</div><div class="lbl">Islands &amp; Islets</div></div>
+    <div class="stat"><div class="num">4</div><div class="lbl">Island-Hopping Tours</div></div>
+    <div class="stat"><div class="num">~1 hr</div><div class="lbl">Flight from Manila</div></div>
+    <div class="stat"><div class="num">236 km</div><div class="lbl">From Puerto Princesa</div></div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap about-split">
+    <div>
+      <div class="sec-tag">About the Place</div>
+      <h2 style="font-size:clamp(30px,4vw,42px);margin:8px 0 16px">The Nest of Palawan</h2>
+      <p style="color:var(--muted)">El Nido takes its name from the Spanish word for "the nest" — swiftlets build edible
+      nests in the cliffs of its marble karst formations, prized in Chinese cuisine. Located on the northern tip of
+      Palawan, this protected marine reserve shelters turquoise lagoons, hidden beaches, coral gardens, and one of the
+      most dramatic seascapes on Earth.</p>
+      <div class="mission-box"><h4>Mission</h4><p>To promote responsible, community-based tourism that protects El Nido's
+      reefs and karst ecosystems for generations to come.</p></div>
+      <div class="mission-box"><h4>Vision</h4><p>A world where travelers and locals thrive together — where every visit
+      leaves the islands cleaner, richer, and more alive than before.</p></div>
+      <div class="mission-box"><h4>History</h4><p>Inhabited for millennia by the Cuyonon and Tagbanwa peoples, El Nido grew
+      from a fishing village into a globally celebrated destination, topping "best island in the world" lists year after year.</p></div>
+    </div>
+    <div class="about-visual"><img src="images/nest-of-palawan-swiftlets.jpg" alt="Edible-nest swiftlets at their nests on the karst cliffs of El Nido"></div>
+  </div>
+</section>
+
+<!-- ATTRACTIONS -->
+<section id="attractions" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Attractions</div>
+      <h2>Must-See Wonders</h2>
+      <p>From hidden lagoons to powdery twin beaches — these are the places that fill photo albums and change bucket lists.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="thumb"><img src="images/big-lagoon.jpg" alt="Big Lagoon, El Nido"></div>
+        <div class="body"><h3>Big &amp; Small Lagoon</h3><p>Paddle through emerald gateways into cathedral-like lagoons ringed by 250-million-year-old limestone cliffs.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/nacpan-beach.jpg" alt="Nacpan Beach, El Nido"></div>
+        <div class="body"><h3>Nacpan Beach</h3><p>Four kilometers of golden sand lined with coconut palms — regularly voted one of Asia's best beaches.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/karst-cliffs.jpg" alt="Limestone cliffs of Taraw, El Nido"></div>
+        <div class="body"><h3>Taraw Cliff</h3><p>El Nido's signature karst spire. Brave the via ferrata climb for a sunrise panorama over Bacuit Bay.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/matinloc.jpg" alt="Matinloc Island, El Nido"></div>
+        <div class="body"><h3>Matinloc Shrine</h3><p>A hilltop shrine on Matinloc Island with sweeping views — and a mystery behind its abandoned construction.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/hidden-beach.jpg" alt="Hidden beach at the Big Lagoon, El Nido"></div>
+        <div class="body"><h3>Hidden Beach</h3><p>A sliver of white sand sealed behind towering rock walls — swim through a narrow opening to find it.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/twin-beaches.jpg" alt="Twin beaches of Nacpan-Calitang, El Nido"></div>
+        <div class="body"><h3>Twin Beaches (Nacpan-Calitang)</h3><p>Two beaches meeting at a sandbar — watch fishermen haul nets as the sun dips into the sea.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Activities</div>
+      <h2>Adventure Awaits</h2>
+      <p>Choose your tour — A, B, C, or D — or chart your own course across Bacuit Bay.</p>
+    </div>
+    <div class="grid g4">
+      <div class="card"><div class="thumb"><img src="images/matinloc-boats.jpg" alt="Island hopping boats in El Nido"></div><div class="body"><h3>Island Hopping</h3><p>The classic banca-boat tour: lagoons, snorkeling stops, and beach picnics.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/lagoon-jump.jpg" alt="Snorkeling in a tropical lagoon, El Nido"></div><div class="body"><h3>Diving &amp; Snorkeling</h3><p>Turtle-filled reefs, shallow coral gardens, and sites like South Miniloc.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/karst-cliffs.jpg" alt="Climbing the karst cliffs of El Nido"></div><div class="body"><h3>Climbing &amp; Hiking</h3><p>Via ferrata to Taraw's summit, or jungle treks to Nagkalit-kalit Falls.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/kayak-big-lagoon.jpg" alt="Kayaking the Big Lagoon"></div><div class="body"><h3>Kayaking</h3><p>Glide into the Small Lagoon and Cadlao's secret passages at your own pace.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/hero-sunset.jpg" alt="Sunset cruise in El Nido"></div><div class="body"><h3>Sunset Cruises</h3><p>Sail a paraw at golden hour with the limestone silhouettes as your backdrop.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/twin-beaches.jpg" alt="Coastal road to Nacpan Beach"></div><div class="body"><h3>E-Bike Explorations</h3><p>Ride the coastal road to Nacpan, Maramegmeg, and quiet fishing villages.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/matinloc.jpg" alt="Remote island in El Nido Bay"></div><div class="body"><h3>Camping</h3><p>Overnight trips to secluded islands — stargazing far from any town light.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/el-nido-bay-aerial.jpg" alt="Calm morning in Bacuit Bay"></div><div class="body"><h3>Yoga &amp; Wellness</h3><p>Beachfront sunrise sessions and spa rituals with island-grown ingredients.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Gallery</div>
+      <h2>Postcards from Paradise</h2>
+      <p>A glimpse of the colors, cliffs, and calm that make El Nido unforgettable.</p>
+    </div>
+    <div class="gallery">
+      <div class="g-item span2"><img src="images/big-lagoon.jpg" alt=""><span>Big Lagoon</span></div>
+      <div class="g-item"><img src="images/hero-sunset.jpg" alt=""><span>Sunset at Corong-Corong</span></div>
+      <div class="g-item tall"><img src="images/el-nido-bay-aerial.jpg" alt=""><span>Bacuit Bay Karsts</span></div>
+      <div class="g-item"><img src="images/twin-beaches.jpg" alt=""><span>Nacpan Palms</span></div>
+      <div class="g-item"><img src="images/hidden-beach.jpg" alt=""><span>Hidden Beach</span></div>
+      <div class="g-item span2"><img src="images/kayak-small-lagoon.jpg" alt="Kayaking the Small Lagoon, Miniloc Island"><span>Small Lagoon Kayak</span></div>
+      <div class="g-item"><img src="images/matinloc.jpg" alt=""><span>Matinloc Island</span></div>
+      <div class="g-item"><img src="images/nacpan-beach.jpg" alt=""><span>Twin Beaches</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD & CULTURE -->
+<section id="food">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Food &amp; Culture</div>
+      <h2>Taste the Islands</h2>
+      <p>Fresh catch, Cuyonon heritage, and flavors shaped by the sea.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="thumb"><img src="images/kinilaw.jpg" alt="Kinilaw, Filipino ceviche"></div>
+        <div class="body"><h3>Kinilaw</h3><p>The Filipino ceviche — fresh tanigue or tuna cured in vinegar, ginger, and calamansi, served beachside.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/curacha.jpg" alt="Kinilaw na isda, Philippines"></div>
+        <div class="body"><h3>Curacha &amp; Lobster</h3><p>Deep-sea crabs and Palawan lobsters, steamed or smothered in coconut-ginger sauce.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/lechon-kawali.jpg" alt="Lechon kawali, Filipino crispy pork"></div>
+        <div class="body"><h3>Lechon &amp; Cashew Delights</h3><p>Crispy roast pork for fiestas — and Palawan's famous cashew brittle and butter to take home.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/matinloc-boats.jpg" alt="Lechon manok, Filipino roasted chicken"></div>
+        <div class="body"><h3>Cuyonon Traditions</h3><p>Songs, dances, and boat-building skills passed down for centuries among the islands' first peoples.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/twin-beaches.jpg" alt="Palm trees at Corong Corong Beach"></div>
+        <div class="body"><h3>Handwoven Crafts</h3><p>Baskets, mats, and textiles woven from pandan and nito, sold in El Nido town's market lanes.</p></div></div>
+      <div class="card"><div class="thumb"><img src="images/lechon.jpg" alt="Lechon being roasted in the Philippines"></div>
+        <div class="body"><h3>Fiesta Spirit</h3><p>Streets come alive for patron saint feasts — lechon, music, and dancing until late.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL GUIDE -->
+<section id="guide" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Travel Guide</div>
+      <h2>How to Get There</h2>
+      <p>Two routes in: over the sea and through the air. Both end in paradise.</p>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-step"><div class="icon">✈️</div><h3>Fly Direct</h3>
+        <p style="color:var(--muted);font-size:14.5px">Direct flights from Manila to El Nido (Lio Airport) take about an hour. From Puerto Princesa, fly or ride north.</p></div>
+      <div class="guide-step"><div class="icon">🚌</div><h3>Overland Van</h3>
+        <p style="color:var(--muted);font-size:14.5px">Air-conditioned vans run the 5–6 hour scenic route from Puerto Princesa through Palawan's countryside to El Nido town.</p></div>
+      <div class="guide-step"><div class="icon">⛴️</div><h3>Ferry Option</h3>
+        <p style="color:var(--muted);font-size:14.5px">Ferries and fastcrafts connect El Nido with Coron — a beautiful 4-hour cruise across the Sulu Sea.</p></div>
+    </div>
+    <div class="tips">
+      <h3>Travel Tips</h3>
+      <ul>
+        <li>Best months: November to May (dry season)</li>
+        <li>June–October: fewer crowds, occasional rain</li>
+        <li>Book island tours early in high season</li>
+        <li>Bring reef-safe sunscreen and dry bags</li>
+        <li>Carry cash — ATMs are limited in town</li>
+        <li>Respect the karst: no climbing on fragile cliffs</li>
+        <li>Try the "no single-use plastic" habit</li>
+        <li>Allocate at least 3–4 full days</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ACCOMMODATIONS -->
+<section id="stay">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Accommodations</div>
+      <h2>Where to Stay</h2>
+      <p>From barefoot beach bungalows to eco-luxury resorts on private coves.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="thumb"><img src="images/matinloc.jpg" alt="Private island resort in El Nido"></div>
+        <div class="body"><h3>Island Eco-Resorts</h3><p>Secluded resorts on Apulit, Pangulasian, and Lagen islands — private beaches and house reefs.</p>
+        <div class="price">₱18,000+ <span>/ night</span></div></div></div>
+      <div class="card"><div class="thumb"><img src="images/el-nido-bay-aerial.jpg" alt="Beachfront at Corong Corong, El Nido"></div>
+        <div class="body"><h3>Beachfront Hotels</h3><p>Comfortable stays along El Nido town and Corong-Corong with sunset views and easy tour pickup.</p>
+        <div class="price">₱4,000–₱10,000 <span>/ night</span></div></div></div>
+      <div class="card"><div class="thumb"><img src="images/twin-beaches.jpg" alt="Tropical beach near El Nido town"></div>
+        <div class="body"><h3>Guesthouses &amp; Homestays</h3><p>Budget-friendly family-run rooms in town — great for backpackers and long stays.</p>
+        <div class="price">₱800–₱3,000 <span>/ night</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Events</div>
+      <h2>Festivals &amp; Celebrations</h2>
+      <p>Mark your calendar — El Nido knows how to throw a party.</p>
+    </div>
+    <div class="timeline">
+      <div class="t-item"><div class="year">February 22</div><p><strong>Kalugtan Festival</strong> — El Nido's grand fiesta honoring St. Francis of Assisi, with street dancing, flotillas, and pageants.</p></div>
+      <div class="t-item"><div class="year">Holy Week</div><p><strong>Island Pilgrimages</strong> — Visita Iglesia by boat to island chapels, a uniquely El Nido tradition.</p></div>
+      <div class="t-item"><div class="year">May 1–7</div><p><strong>Feast of the Fisherfolk</strong> — Regattas, banca races, and thanksgiving feasts in fishing villages.</p></div>
+      <div class="t-item"><div class="year">December</div><p><strong>Christmas by the Sea</strong> — Lantern-lit beaches, caroling, and seafood-laden Noche Buena celebrations.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Contact</div>
+      <h2>Get in Touch</h2>
+      <p>Questions about tours, permits, or planning? Send us a message — we reply within a day.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="info-block"><h4>📍 Tourism Office</h4><p>Municipal Tourism Office, Real Street, Barangay Buena Suerte,<br>El Nido, Palawan 5313, Philippines</p></div>
+        <div class="info-block"><h4>📞 Inquiries</h4><p>Phone: +63 (0) 48 716 xxx<br>Email: hello@elnidopalawan.ph</p></div>
+        <div class="info-block"><h4>🕐 Hours</h4><p>Monday – Saturday, 8:00 AM – 5:00 PM</p>
+          <div class="socials">
+            <a href="#">Facebook</a><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">TikTok</a>
+          </div>
+        </div>
+      </div>
+      <form id="contactForm">
+        <label for="name">Full Name</label><input id="name" type="text" placeholder="Juan Dela Cruz" required>
+        <label for="email">Email Address</label><input id="email" type="email" placeholder="you@email.com" required>
+        <label for="topic">Topic</label>
+        <select id="topic">
+          <option>Island-hopping tour inquiry</option>
+          <option>Accommodation booking</option>
+          <option>Travel guide / itinerary help</option>
+          <option>Events &amp; festivals</option>
+          <option>Other</option>
+        </select>
+        <label for="msg">Message</label><textarea id="msg" rows="5" placeholder="Tell us about your dream trip..." required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">EL&nbsp;NIDO</div>
+  <p>Palawan, Philippines · "The Nest" of the last frontier</p>
+  <p style="margin-top:8px;opacity:.7">© 2026 El Nido Tourism. Travel responsibly — leave only footprints.</p>
+  <p class="credits">Photos: Wikimedia Commons, Tripadvisor, Expedia, Serious Eats, Kawaling Pinoy &amp; travel blogs — for personal/demo use only; please check each source's license before publishing.</p>
+</footer>
+
+<script>
+  const ham=document.getElementById('hamBtn'),links=document.getElementById('navLinks');
+  ham.addEventListener('click',()=>links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+  document.getElementById('contactForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    alert('Salamat! Your message has been sent. We\'ll get back to you within 24 hours. 🌴');
+    e.target.reset();
+  });
+  const secs=document.querySelectorAll('section[id], header[id]');
+  const navA=[...links.querySelectorAll('a')];
+  window.addEventListener('scroll',()=>{
+    let cur='home';
+    secs.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id});
+    navA.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  });
+</script>
+</body>
+</html>
